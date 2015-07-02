@@ -1,0 +1,24 @@
+Description
+===========
+
+There are 2 states: statePing and statePong
+When timer running then:
+Maximum lifetime of statePing is 1000 ms - it will then automatically transition to statePong;
+Maximum lifetime of statePong is 2000 ms - it will then automatically transition to statePing.
+
+Keyboard-Input can cause transitions before the max-lifetime-timeouts:
+'x': xchange state
+'i': leave current state and go to statePing (pIng)
+'o': leave current state and go to statePong (pOng)
+'t': toggle timer (on/off)
+'q' or eof (Ctrl-d): exit
+
+
+
+Two versions
+============
+
+a) qt_ping_pong
+b) qt_ping_pong_event_templates
+
+Version a) is better in terms of less generated code-size
