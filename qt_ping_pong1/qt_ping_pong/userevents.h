@@ -29,10 +29,8 @@ enum UserDEventEnum{
 
 struct UserEvent : public QEvent
 {
- UserEvent(UserEventEnum eventEnum_ = UserEventEnum(QEvent::User)) : QEvent(QEvent::Type(eventEnum_)),   eventEnum{eventEnum_} {}
- UserEvent(const UserEvent &other)   : UserEvent(other.eventEnum) {}
-
-  const UserEventEnum eventEnum;
+ UserEvent(UserEventEnum eventEnum_ = UserEventEnum(QEvent::User)) : QEvent(QEvent::Type(eventEnum_)) {}
+ UserEvent(const UserEvent &other) : QEvent(other.type()) {}
 };
 
 
@@ -41,17 +39,17 @@ struct UserDataEvent : public QEvent
 {
   using Data = Data_;
 
- UserDataEvent(UserDEventEnum eventEnum_ = UserDEventEnum(QEvent::User)) : QEvent(QEvent::Type(eventEnum_)),      eventEnum{eventEnum_},      data{0} {}
- UserDataEvent(UserDEventEnum eventEnum_, const Data_ &data_)            : QEvent(QEvent::Type(eventEnum_)),      eventEnum{eventEnum_},      data(data_) {}
- UserDataEvent(const UserDataEvent<Data_> &other)                        : QEvent(QEvent::Type(other.eventEnum)), eventEnum{other.eventEnum}, data(other.data) {}
+ UserDataEvent(UserDEventEnum eventEnum_ = UserDEventEnum(QEvent::User)) : QEvent(QEvent::Type(eventEnum_)),  data{} {}
+ UserDataEvent(UserDEventEnum eventEnum_, const Data_ &data_)            : QEvent(QEvent::Type(eventEnum_)),  data(data_) {}
+ UserDataEvent(const UserDataEvent<Data_> &other)                        : QEvent(other.type()),              data(other.data) {}
 
-  const UserDEventEnum eventEnum;
   Data_ data;
 };
 
 
 // Data for DEventTimeout
 struct TimeoutData {
+TimeoutData(qint64 millis=0) : millisFromEpoch{millis} {}
   qint64 millisFromEpoch;
 };
 

@@ -18,7 +18,7 @@ void subscribe_statemachine_to_interlayer(StateMachine &sm)
   QObject::connect(&interlayer, &Interlayer::signalEvent,
                    [&](const UserEvent &e) {
                      bool post{false};
-                     switch (static_cast<int>(e.eventEnum)) {
+                     switch (static_cast<int>(e.type())) {
                      case EventX:
                        post = true;
                        std::cout << "posting EventX" << std::endl;
